@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "948799452649",
+    "project_id": "clickerracer",
+    "storage_bucket": "clickerracer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948799452649:android:d6c432cd8381ac519b8778",
+        "android_client_info": {
+          "package_name": "ipca.project.clickerracer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948799452649-g8iiv53eq69mlmg64nofjrkqnfutbah3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmpqgILngiQznu1G-MiCX7WZcdFZB7x74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948799452649-g8iiv53eq69mlmg64nofjrkqnfutbah3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

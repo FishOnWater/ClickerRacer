@@ -42,7 +42,6 @@ class GameView : SurfaceView, Runnable {
         init(context, 0, 0)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(
         context: Context?,
         attrs: AttributeSet?,
@@ -98,13 +97,13 @@ class GameView : SurfaceView, Runnable {
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when(event?.action){
-            MotionEvent.ACTION_UP ->{
+            MotionEvent.ACTION_DOWN ->{
                 playerCar.accelerating = false
             }
-            MotionEvent.ACTION_DOWN ->{
+            MotionEvent.ACTION_UP ->{
                 playerCar.accelerating = true
             }
         }
-        return false
+        return true
     }
 }
