@@ -11,6 +11,11 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.annotation.RequiresApi
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.util.*
+
+abstract class CountDownTimer
 
 class GameView : SurfaceView, Runnable {
 
@@ -21,7 +26,16 @@ class GameView : SurfaceView, Runnable {
     var canvas : Canvas? = null
     var paint : Paint = Paint()
 
-    lateinit var playerCar: PlayerCar
+    lateinit var playerCar : PlayerCar
+    var textSpeed : Int = 0
+
+    //Database
+    val database = Firebase.database
+    val mySpeed = database.getReference("message")
+
+    //Timer
+    //var timeLeft : Int = 30000
+    //var timeEnded = false
 
     private fun init(context: Context?, width: Int, height: Int){
         playerCar = PlayerCar(context!!, width, height)
@@ -62,7 +76,12 @@ class GameView : SurfaceView, Runnable {
     private fun update(){
         playerCar.update()
 
-        //Implement
+        textSpeed = playerCar.carSpeed
+
+        mySpeed.setValue("$textSpeed")
+
+        //timeLeft -= 1000
+        //if(timeLeft == 0) timeEnded = true
     }
 
     private fun draw(){
@@ -74,10 +93,19 @@ class GameView : SurfaceView, Runnable {
                 paint.color = Color.WHITE
 
                 canvas?.drawBitmap(playerCar.bitmap, playerCar.x.toFloat(), playerCar.y.toFloat(), paint)
+
+                paint.color = Color.BLACK
+                paint.textSize = 60f
+                canvas?.drawText("Speed: $textSpeed", 0f, 100f, paint)
+
+                //if(timeEnded){
+                //    paint.color = Color.BLACK
+                //    paint.textSize = 150f
+                //    canvas?.drawText("Total Speed: $textSpeed", 150f, 500f, paint)
+                //}
                 surfaceHolder?.unlockCanvasAndPost(canvas)
             }
         }
-        //Implement
     }
 
     private fun control(){
@@ -98,10 +126,12 @@ class GameView : SurfaceView, Runnable {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when(event?.action){
             MotionEvent.ACTION_DOWN ->{
-                playerCar.accelerating = false
-            }
-            MotionEvent.ACTION_UP ->{
+                playerCar.carSpeed += 5
                 playerCar.accelerating = true
+            }
+            MotionEvent.ACTION_UP -> {
+                playerCar.carSpeed -= 3
+                playerCar.accelerating = false
             }
         }
         return true

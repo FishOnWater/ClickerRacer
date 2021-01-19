@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -18,15 +19,15 @@ class StatsActivity : AppCompatActivity() {
 
         //Database
         val database = Firebase.database
-        val myRef = database.getReference("message")
+        val mySpeed = database.getReference("message")
+        val speedStat = findViewById<TextView>(R.id.textViewSpeedStat)
 
-        myRef.setValue("Still checking, me Pepega")
-
-        //Read
-        myRef.addValueEventListener(object : ValueEventListener {
+        //Read stats
+        mySpeed.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val value = dataSnapshot.getValue<String>()
                 Log.d(TAG, "Value is: $value")
+                speedStat.text = "Last speed was: $value"
             }
 
             override fun onCancelled(error: DatabaseError) {

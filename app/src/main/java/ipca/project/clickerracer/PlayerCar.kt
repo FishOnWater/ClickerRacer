@@ -17,7 +17,7 @@ class PlayerCar {
     var bitmap : Bitmap
 
     constructor(context: Context, width: Int, height: Int) {
-        x = 0
+        x = 300
         y=  5000
         carSpeed = 0
         bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.pepegadriving)
@@ -27,15 +27,13 @@ class PlayerCar {
 
     fun update(){
         if(accelerating){
-            carSpeed += 5
+            if(carSpeed < MIN_SPEED) carSpeed = MIN_SPEED
+            y -= carSpeed
         }
         else{
-            carSpeed -= 2
+            if(carSpeed < MIN_SPEED) carSpeed = MIN_SPEED
+            y += carSpeed
         }
-
-        if(carSpeed < MIN_SPEED) carSpeed = MIN_SPEED
-
-        y -= carSpeed
 
         if(y > maxY) y = maxY
         if(y < minY) y = minY
